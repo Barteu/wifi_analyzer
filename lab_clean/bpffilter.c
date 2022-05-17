@@ -20,7 +20,7 @@
 #include <sys/ioctl.h>
 #include <unistd.h>
 
-#define FILTER arp_filter
+#define FILTER icmp_filter
 
 int sfd;
 struct ifreq ifr;
