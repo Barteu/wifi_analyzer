@@ -23,9 +23,9 @@ setting monitor mode
 ```bash
 sudo iw phy phy0 interface add mon0 type monitor
 sudo iw dev wlan0 del
-sudo iw dev mon0 set freq 5180 $ for 5G
+sudo iw dev mon0 set freq 5180 # for 5G
 sudo ifconfig mon0 up
-iwconfig mon0 $ to check if works
+iwconfig mon0 # to check if works
 ```
 
 cleaning
