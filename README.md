@@ -17,3 +17,8 @@ https://www.tcpdump.org/linktypes.html
 
 IEE80211 headers struct:
 https://elixir.bootlin.com/linux/latest/source/include/linux/ieee80211.h
+
+```bash
+sudo iw wlan0 interface add mon0 type monitor
+sudo ifconfig mon0 up
+```
