@@ -27,10 +27,24 @@ sudo ifconfig mon0 up
 sudo iw dev mon0 set freq 5180 # for 5G
 iwconfig mon0 # to check if works
 ```
+or
+```bash
+airmon-ng check kill
+airmon-ng start wlan0
+iwconfig
+```
 
 cleaning
 ```bash
 sudo iw dev mon0 del
 sudo iw phy phy0 interface add wlan0 type managed
 iwconfig wlan0
+```
+or
+```bash
+airmon-ng stop wlan0mon #wlan0mon may be different
+systemctl start NetworkManager
+##############################################################
+#### in case of problem with DNS
+rm /etc/resolv.conf && systemctl restart NetworkManager.service
 ```
