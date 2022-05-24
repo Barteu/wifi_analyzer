@@ -43,37 +43,37 @@ void print_subtype(u_int8_t type, u_int8_t subtype){
 	char* subtype_name;
 	if(type==0b00){
 	    switch(subtype){
-	        case 0b0000:
+	        case WIFI_STYPE_ASSOC_REQ:
 	            subtype_name = "WIFI_STYPE_ASSOC_REQ";
 		    break;
-	        case 0b0001:
+	        case WIFI_STYPE_ASSOC_RESP:
 	            subtype_name = "WIFI_STYPE_ASSOC_RESP";
 		    break;		
-	        case 0b0010:
+	        case WIFI_STYPE_REASSOC_REQ:
 	            subtype_name = "WIFI_STYPE_REASSOC_REQ";
 		    break;			
-	        case 0b0011:
+	        case WIFI_STYPE_REASSOC_RESP:
 	            subtype_name = "WIFI_STYPE_REASSOC_RESP";
 		    break;
-	        case 0b0100:
+	        case WIFI_STYPE_PROBE_REQ:
 	            subtype_name = "WIFI_STYPE_PROBE_REQ";
 		    break;
-	        case 0b0101:
+	        case WIFI_STYPE_PROBE_RESP:
 	            subtype_name = "WIFI_STYPE_PROBE_RESP";
 		    break;
-	        case 0b1000:
+	        case WIFI_STYPE_BEACON:
 	            subtype_name = "WIFI_STYPE_BEACON";
 		    break;
-	        case 0b1001:
+	        case WIFI_STYPE_ATIM:
 	            subtype_name = "WIFI_STYPE_ATIM";
 		    break;
-	        case 0b1010:
+	        case WIFI_STYPE_DISASSOC:
 	            subtype_name = "WIFI_STYPE_DISASSOC";
 		    break;
-	        case 0b1011:
+	        case WIFI_STYPE_AUTH:
 	            subtype_name = "WIFI_STYPE_AUTH";
 		    break;
-	        case 0b1100:
+	        case WIFI_STYPE_DEAUTH:
 	            subtype_name = "WIFI_STYPE_DEAUTH";
 		    break;
 		default:
@@ -82,22 +82,22 @@ void print_subtype(u_int8_t type, u_int8_t subtype){
 	}
 	else if(type==0b01){
 	    switch(subtype){
-	        case 0b1010:
+	        case WIFI_STYPE_PSPOLL:
 	            subtype_name = "WIFI_STYPE_PSPOLL";
 		    break;
-	        case 0b1011:
+	        case WIFI_STYPE_RTS:
 	            subtype_name = "WIFI_STYPE_RTS";
 		    break;		
-	        case 0b1100:
+	        case WIFI_STYPE_CTS:
 	            subtype_name = "WIFI_STYPE_CTS";
 		    break;			
-	        case 0b1101:
+	        case WIFI_STYPE_ACK:
 	            subtype_name = "WIFI_STYPE_ACK";
 		    break;
-	        case 0b1110:
+	        case WIFI_STYPE_CFEND:
 	            subtype_name = "WIFI_STYPE_CFEND";
 		    break;
-	        case 0b1111:
+	        case WIFI_STYPE_CFENDACK:
 	            subtype_name = "WIFI_STYPE_CFENDACK";
 		    break;
 		default:
@@ -106,49 +106,49 @@ void print_subtype(u_int8_t type, u_int8_t subtype){
 	}
 	else if(type==0b10){
 	    switch(subtype){
-	        case 0b0000:
+	        case WIFI_STYPE_DATA:
 	            subtype_name = "WIFI_STYPE_DATA";
 		    break;
-	        case 0b0001:
+	        case WIFI_STYPE_DATA_CFACK:
 	            subtype_name = "WIFI_STYPE_DATA_CFACK";
 		    break;		
-	        case 0b0010:
+	        case WIFI_STYPE_DATA_CFPOLL:
 	            subtype_name = "WIFI_STYPE_DATA_CFPOLL";
 		    break;			
-	        case 0b0011:
+	        case WIFI_STYPE_DATA_CFACKPOLL:
 	            subtype_name = "WIFI_STYPE_DATA_CFACKPOLL";
 		    break;
-	        case 0b0100:
+	        case WIFI_STYPE_NULLFUNC:
 	            subtype_name = "WIFI_STYPE_NULLFUNC";
 		    break;
-	        case 0b0101:
+	        case WIFI_STYPE_CFACK:
 	            subtype_name = "WIFI_STYPE_CFACK";
 		    break;
-	        case 0b0110:
+	        case WIFI_STYPE_CFPOLL:
 	            subtype_name = "WIFI_STYPE_CFPOLL";
 		    break;
-	        case 0b0111:
+	        case WIFI_STYPE_CFACKPOLL:
 	            subtype_name = "WIFI_STYPE_CFACKPOLL";
 		    break;
-	        case 0b1000:
+	        case WIFI_STYPE_QOS_DATA:
 	            subtype_name = "WIFI_STYPE_QOS_DATA";
 		    break;
-	        case 0b1001:
+	        case WIFI_STYPE_QOS_DATA_CFACK:
 	            subtype_name = "WIFI_STYPE_QOS_DATA_CFACK";
 		    break;
-	        case 0b1010:
+	        case WIFI_STYPE_QOS_DATA_CFPOLL:
 	            subtype_name = "WIFI_STYPE_QOS_DATA_CFPOLL";
 		    break;
-	        case 0b1011:
+	        case WIFI_STYPE_QOS_DATA_CFACKPOLL:
 	            subtype_name = "WIFI_STYPE_QOS_DATA_CFACKPOLL";
 		    break;
-	        case 0b1100:
+	        case WIFI_STYPE_QOS_NULLFUNC:
 	            subtype_name = "WIFI_STYPE_QOS_NULLFUNC";
 		    break;		
-	        case 0b1110:
+	        case WIFI_STYPE_QOS_CFPOLL:
 	            subtype_name = "WIFI_STYPE_QOS_CFPOLL";
 		    break;			
-	        case 0b1111:
+	        case WIFI_STYPE_QOS_CFACK:
 	            subtype_name = "WIFI_STYPE_QOS_CFACK";
 		    break;
 		default:
@@ -170,18 +170,49 @@ printf("%02x:%02x:%02x:%02x:%02x:%02x\n",
 
 } 
 
-void print_wifi_hdr(struct wifi_hdr wifihdr ){
 
-	print_type(wifihdr.frame_control.type);
-	print_subtype(wifihdr.frame_control.type, wifihdr.frame_control.subtype);
-	printf("Duration id: %d\n", wifihdr.duration_id);
-	printf("Addr 1: ");
-	print_mac_addr(wifihdr.addr1);
-	printf("Addr 2: ");
-	print_mac_addr(wifihdr.addr2);
-	printf("Addr 3: ");
-	print_mac_addr(wifihdr.addr3);
-	
+void bin(unsigned n)
+{
+    if (n > 1)
+        bin(n / 2);
+    printf("%d", n % 2);
+}
+
+
+void print_frame_control(struct frame_control frame){
+
+	bin(frame.protocolVersion);
 	printf("\n");
-	
+	print_type(frame.type);
+	print_subtype(frame.type, frame.subtype);
+	printf("\n [toDS = ");
+	bin(frame.toDS);
+	printf(" ][fromDS = ");
+	bin(frame.fromDS);
+	printf(" ][moreFrag = ");
+	bin(frame.moreFrag);
+	printf(" ][retry = ");
+	bin(frame.retry);
+	printf(" ]\n[powerManagement = ");
+	bin(frame.powerManagement);
+	printf(" ][moreData = ");
+	bin(frame.moreData);
+	printf(" ][WEP = ");
+	bin(frame.WEP);
+	printf(" ][rsvd = ");
+	bin(frame.rsvd);
+}
+
+
+void print_wifi_hdr(struct wifi_hdr wifihdr){
+	printf("[] frame control:");
+	print_frame_control(wifihdr.frame_control);
+	printf("[] Duration id: %d\n", wifihdr.duration_id);
+	printf("[] Addr 1: ");
+	print_mac_addr(wifihdr.addr1);
+	printf("[] Addr 2: ");
+	print_mac_addr(wifihdr.addr2);
+	printf("[] Addr 3: ");
+	print_mac_addr(wifihdr.addr3);
+	printf("\n");
 }
