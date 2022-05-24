@@ -32,6 +32,14 @@ or
 airmon-ng check kill
 airmon-ng start wlan0
 iwconfig
+
+```
+or
+```bash
+service NetworkManager stop
+sudo ifconfig wlp7s0 down
+sudo iwconfig wlp7s0 mode monitor
+sudo ifconfig wlp7s0 up
 ```
 
 cleaning
