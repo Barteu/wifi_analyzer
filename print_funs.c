@@ -201,6 +201,7 @@ void print_frame_control(struct frame_control frame){
 	bin(frame.WEP);
 	printf(" ][rsvd = ");
 	bin(frame.rsvd);
+	printf(" ]\n");
 }
 
 
