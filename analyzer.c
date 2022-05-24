@@ -8,7 +8,7 @@
 #include <pcap.h>
 #include <signal.h>
 #include "print_funs.h"
-// -----------====----------- pcapsniff.c code <start>
+
 char* errbuf;
 pcap_t* handle;
 
@@ -20,7 +20,6 @@ void cleanup() {
 void stop(int signo) {
   exit(EXIT_SUCCESS);
 }
-// =====----------------------==== pcapsniff.c code <end>
 
 
 void trap(u_char *user, const struct pcap_pkthdr *h, const u_char *bytes) {
@@ -69,7 +68,6 @@ int main(int argc, char** argv) {
     }
 
 
-// -----------====----------- pcapsniff.c code <start>
     atexit(cleanup);
     signal(SIGINT, stop);
     errbuf = malloc(PCAP_ERRBUF_SIZE);
@@ -77,7 +75,6 @@ int main(int argc, char** argv) {
     pcap_set_promisc(handle, 1);
     pcap_set_snaplen(handle, 65535);
     pcap_set_timeout(handle, 1000);
-// =====----------------------==== pcapsniff.c code <end>
     if(pcap_activate(handle)!=0)
     {
       exit(EXIT_FAILURE);
@@ -89,9 +86,8 @@ int main(int argc, char** argv) {
       fprintf(stderr, "Interface %s is not an IEEE802.11\n", dev);
       exit(EXIT_FAILURE);
   }
+  
   printf("analyzer is running...\n");
+  pcap_loop(handle, -1, trap, NULL);
 
-// -----------====----------- pcapsniff.c code <start>
-    pcap_loop(handle, -1, trap, NULL);
-// =====----------------------==== pcapsniff.c code <end>
 }
