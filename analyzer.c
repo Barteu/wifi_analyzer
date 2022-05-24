@@ -49,12 +49,21 @@ int main(int argc, char** argv) {
     pcap_set_promisc(handle, 1);
     pcap_set_snaplen(handle, 65535);
     pcap_set_timeout(handle, 1000);
-    pcap_activate(handle);
 // =====----------------------==== pcapsniff.c code <end>
+    switch(pcap_activate(handle))
+    {
+      case 0:
+        printf("OK\n");
+        break;
+      default:
+        exit(EXIT_FAILURE);
+
+    }
 
 
   /* check if IEEE802.11 device is used*/
-    if (pcap_datalink(handle) != DLT_IEEE802_11) {
+  printf("%d\n",pcap_datalink(handle));
+    if (pcap_datalink(handle) != DLT_IEEE802_11_RADIO) {
         fprintf(stderr, "Interface %s is not an IEEE802.11\n", dev);
         exit(EXIT_FAILURE);
     }
