@@ -209,11 +209,46 @@ void print_wifi_hdr(struct wifi_hdr wifihdr){
 	printf("[] frame control:");
 	print_frame_control(wifihdr.frame_control);
 	printf("[] Duration id: %d\n", wifihdr.duration_id);
-	printf("[] Addr 1: ");
-	print_mac_addr(wifihdr.addr1);
-	printf("[] Addr 2: ");
-	print_mac_addr(wifihdr.addr2);
-	printf("[] Addr 3: ");
-	print_mac_addr(wifihdr.addr3);
-	printf("\n");
+	switch (wifihdr.frame_control.type)
+	{
+		case WIFI_FTYPE_DATA:
+			printf("[] Addr 1: ");
+			print_mac_addr(wifihdr.addr1);
+			printf("[] Addr 2: ");
+			print_mac_addr(wifihdr.addr2);
+			printf("[] Addr 3: ");
+			print_mac_addr(wifihdr.addr3);
+			printf("[] Addr 4: ");
+			print_mac_addr(wifihdr.addr4);
+			printf("\n");
+			break;
+		case WIFI_FTYPE_CTL:
+			switch (wifihdr.frame_control.subtype)
+			{
+				case WIFI_STYPE_PSPOLL:
+					printf("[] Addr TA: ");
+					print_mac_addr(wifihdr.addr2);
+					break;
+				case WIFI_STYPE_RTS:
+					printf("[] Addr RA: ");
+					print_mac_addr(wifihdr.addr1);
+					printf("[] Addr TA: ");
+					print_mac_addr(wifihdr.addr2);
+					break;
+				default:
+					printf("[] Addr TA: ");
+					print_mac_addr(wifihdr.addr1);
+					break;
+			}
+			printf("\n");
+			break;
+		default:
+			printf("[] DA: ");
+			print_mac_addr(wifihdr.addr1);
+			printf("[] SA: ");
+			print_mac_addr(wifihdr.addr2);
+			printf("\n");
+			break;
+	}
+	
 }
