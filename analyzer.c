@@ -9,7 +9,8 @@
 #include <signal.h>
 #include <stdlib.h>
 #include <string.h>
-#include "wifi_types.h"
+#include <ctype.h>
+#include "wifi_types.h" 
 // -----------====----------- pcapsniff.c code <start>
 char* errbuf;
 pcap_t* handle;
@@ -24,11 +25,28 @@ void stop(int signo) {
 }
 // =====----------------------==== pcapsniff.c code <end>
 
+void print_frame_body(const u_char *frame_body, int len){
+  printf("F\n");
+  for(int i=0; i<len; i+=16){
+    for(int j=0; j<16 ;j++){
+      if(j + i < len)
+        printf("%02x ", frame_body[i+j]);
+      else
+        printf("   ");
+    }
+    printf(" ");
+    for(int j=0; j<16 ;j++){
+      printf("%c", (isprint(frame_body[i+j]) ? frame_body[i+j] : '.'));
+    }     
+    printf("\n");
+  }
+  printf("\n");
+}
 
 void trap(u_char *user, const struct pcap_pkthdr *h, const u_char *bytes) {
   struct radiotap_hdr *rthdr = (struct radiotap_hdr *) bytes;
   struct wifi_hdr *wifihdr = (struct wifi_hdr *) (bytes + rthdr->len);
-  printf("[%dB of %dB]\n", h->caplen, h->len);
+  
 }
 
 int main(int argc, char** argv) {
