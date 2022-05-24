@@ -26,10 +26,35 @@ void stop(int signo) {
 void trap(u_char *user, const struct pcap_pkthdr *h, const u_char *bytes) {
   struct radiotap_hdr *rthdr = (struct radiotap_hdr *) bytes;
   struct wifi_hdr *wifihdr = (struct wifi_hdr *) (bytes + rthdr->len);
-  const u_char *frame_body = bytes + rthdr->len + sizeof(struct wifi_hdr);
   printf("[%dB of %dB]\n", h->caplen, h->len);
   print_wifi_hdr(*wifihdr);
-  print_frame_body(frame_body, h->len - rthdr->len - sizeof(struct wifi_hdr) - 2);
+
+  const u_char *frame_body;
+  int frame_len;
+  if(wifihdr->frame_control.type == WIFI_FTYPE_MGMT){
+    frame_body = bytes + rthdr->len + sizeof(struct wifi_hdr) - 6;
+    frame_len = h->len - rthdr->len - sizeof(struct wifi_hdr) + 2;
+    print_frame_body(frame_body, frame_len);
+  }else if(wifihdr->frame_control.type == WIFI_FTYPE_DATA){
+    switch (wifihdr->frame_control.subtype)
+    {
+      case WIFI_STYPE_QOS_DATA:	
+      case WIFI_STYPE_QOS_DATA_CFACK:
+      case WIFI_STYPE_QOS_DATA_CFPOLL:
+      case WIFI_STYPE_QOS_DATA_CFACKPOLL:
+      case WIFI_STYPE_QOS_NULLFUNC:
+      case WIFI_STYPE_QOS_CFPOLL:
+      case WIFI_STYPE_QOS_CFACK:
+        frame_body = bytes + rthdr->len + sizeof(struct wifi_hdr) + 2;
+        frame_len = h->len - rthdr->len - sizeof(struct wifi_hdr) - 6;
+        break;
+      default:
+        frame_body = bytes + rthdr->len + sizeof(struct wifi_hdr);
+        frame_len = h->len - rthdr->len - sizeof(struct wifi_hdr) - 4;
+        break;
+    }
+    print_frame_body(frame_body, frame_len);
+  }
 }
 
 int main(int argc, char** argv) {
@@ -53,14 +78,9 @@ int main(int argc, char** argv) {
     pcap_set_snaplen(handle, 65535);
     pcap_set_timeout(handle, 1000);
 // =====----------------------==== pcapsniff.c code <end>
-    switch(pcap_activate(handle))
+    if(pcap_activate(handle)!=0)
     {
-      case 0:
-        printf("OK\n");
-        break;
-      default:
-        exit(EXIT_FAILURE);
-
+      exit(EXIT_FAILURE);
     }
 
 
