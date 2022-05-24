@@ -35,7 +35,7 @@ void print_type(u_int8_t type){
 		default:
 			type_name = "UNKNOWN";
 	}
-	printf("Type = %s\n", type_name);
+	printf("[Type = %s]\n", type_name);
 }
 
 
@@ -158,7 +158,7 @@ void print_subtype(u_int8_t type, u_int8_t subtype){
 	else{
 		subtype_name = "UNKNOWN";
 	}
-	printf("Subtype = %s\n", subtype_name);
+	printf("[Subtype = %s]\n", subtype_name);
 
 }
 
@@ -181,74 +181,40 @@ void bin(unsigned n)
 
 void print_frame_control(struct frame_control frame){
 
+	printf("[protocolVersion = ");
 	bin(frame.protocolVersion);
-	printf("\n");
+	printf("]\n");
 	print_type(frame.type);
 	print_subtype(frame.type, frame.subtype);
-	printf("\n [toDS = ");
+	printf("[toDS = ");
 	bin(frame.toDS);
-	printf(" ][fromDS = ");
+	printf("][fromDS = ");
 	bin(frame.fromDS);
-	printf(" ][moreFrag = ");
+	printf("][moreFrag = ");
 	bin(frame.moreFrag);
-	printf(" ][retry = ");
+	printf("][retry = ");
 	bin(frame.retry);
-	printf(" ]\n[powerManagement = ");
+	printf("]\n[powerManagement = ");
 	bin(frame.powerManagement);
-	printf(" ][moreData = ");
+	printf("][moreData = ");
 	bin(frame.moreData);
-	printf(" ][WEP = ");
+	printf("][WEP = ");
 	bin(frame.WEP);
-	printf(" ][rsvd = ");
+	printf("][rsvd = ");
 	bin(frame.rsvd);
-	printf(" ]\n");
+	printf("]\n\n");
 }
 
 
 void print_wifi_hdr(struct wifi_hdr wifihdr){
-	printf("[] frame control:");
+	printf("Frame control:\n");
 	print_frame_control(wifihdr.frame_control);
-	printf("[] Duration id: %d\n", wifihdr.duration_id);
-	switch (wifihdr.frame_control.type)
-	{
-		case WIFI_FTYPE_DATA:
-			printf("[] Addr 1: ");
-			print_mac_addr(wifihdr.addr1);
-			printf("[] Addr 2: ");
-			print_mac_addr(wifihdr.addr2);
-			printf("[] Addr 3: ");
-			print_mac_addr(wifihdr.addr3);
-			printf("[] Addr 4: ");
-			print_mac_addr(wifihdr.addr4);
-			printf("\n");
-			break;
-		case WIFI_FTYPE_CTL:
-			switch (wifihdr.frame_control.subtype)
-			{
-				case WIFI_STYPE_PSPOLL:
-					printf("[] Addr TA: ");
-					print_mac_addr(wifihdr.addr2);
-					break;
-				case WIFI_STYPE_RTS:
-					printf("[] Addr RA: ");
-					print_mac_addr(wifihdr.addr1);
-					printf("[] Addr TA: ");
-					print_mac_addr(wifihdr.addr2);
-					break;
-				default:
-					printf("[] Addr TA: ");
-					print_mac_addr(wifihdr.addr1);
-					break;
-			}
-			printf("\n");
-			break;
-		default:
-			printf("[] DA: ");
-			print_mac_addr(wifihdr.addr1);
-			printf("[] SA: ");
-			print_mac_addr(wifihdr.addr2);
-			printf("\n");
-			break;
-	}
-	
+	printf("Duration id: %d\n", wifihdr.duration_id);
+	printf("Addr 1: ");
+	print_mac_addr(wifihdr.addr1);
+	printf("Addr 2: ");
+	print_mac_addr(wifihdr.addr2);
+	printf("Addr 3: ");
+	print_mac_addr(wifihdr.addr3);
+	printf("\n");
 }
