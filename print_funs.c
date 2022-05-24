@@ -163,10 +163,25 @@ void print_subtype(u_int8_t type, u_int8_t subtype){
 }
 
 
+void print_mac_addr(u_int8_t addr[]){
+printf("%02x:%02x:%02x:%02x:%02x:%02x\n",
+           addr[0], addr[1], addr[2],
+           addr[3], addr[4], addr[5]);
+
+} 
 
 void print_wifi_hdr(struct wifi_hdr wifihdr ){
+
 	print_type(wifihdr.frame_control.type);
 	print_subtype(wifihdr.frame_control.type, wifihdr.frame_control.subtype);
+	printf("Duration id: %d\n", wifihdr.duration_id);
+	printf("Addr 1: ");
+	print_mac_addr(wifihdr.addr1);
+	printf("Addr 2: ");
+	print_mac_addr(wifihdr.addr2);
+	printf("Addr 3: ");
+	print_mac_addr(wifihdr.addr3);
+	
 	printf("\n");
 	
 }
