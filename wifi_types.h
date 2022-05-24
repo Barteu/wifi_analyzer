@@ -1,3 +1,4 @@
+#include <linux/types.h>
 /* Main types */
 #define WIFI_FTYPE_MGMT					0b00	//Type management
 #define WIFI_FTYPE_CTL					0b01	//Type control
@@ -71,7 +72,3 @@ struct wifi_hdr {
     u_int16_t sequence_control;
     u_int8_t addr4[6];
 };
-
-
-struct radiotap_hdr *rthdr = (struct radiotap_hdr *) bytes;
-struct wifi_hdr *wifihdr = (struct wifi_hdr *) (bytes + rthdr->len);

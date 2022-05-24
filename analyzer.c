@@ -9,7 +9,7 @@
 #include <signal.h>
 #include <stdlib.h>
 #include <string.h>
-
+#include "wifi_types.h"
 // -----------====----------- pcapsniff.c code <start>
 char* errbuf;
 pcap_t* handle;
@@ -26,6 +26,8 @@ void stop(int signo) {
 
 
 void trap(u_char *user, const struct pcap_pkthdr *h, const u_char *bytes) {
+  struct radiotap_hdr *rthdr = (struct radiotap_hdr *) bytes;
+  struct wifi_hdr *wifihdr = (struct wifi_hdr *) (bytes + rthdr->len);
   printf("[%dB of %dB]\n", h->caplen, h->len);
 }
 
