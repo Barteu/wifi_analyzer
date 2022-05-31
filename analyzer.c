@@ -31,8 +31,17 @@ void trap(u_char *user, const struct pcap_pkthdr *h, const u_char *bytes) {
   const u_char *frame_body;
   int frame_len;
   if(wifihdr->frame_control.type == WIFI_FTYPE_MGMT){
-    frame_body = bytes + rthdr->len + sizeof(struct wifi_hdr) - 6;
-    frame_len = h->len - rthdr->len - sizeof(struct wifi_hdr) + 2;
+    frame_body = bytes + rthdr->len + sizeof(struct wifi_hdr) - 4;
+    frame_len = h->len - rthdr->len - sizeof(struct wifi_hdr) ;
+    if(wifihdr->frame_control.subtype == WIFI_STYPE_BEACON){
+      int i = 0;
+      printf("SSID: ");
+      while(isprint(*(frame_body + 12 + i))) {
+        printf("%c", *(frame_body + 12 + i));
+        i++;
+      }
+      printf("\n");
+    }
     print_frame_body(frame_body, frame_len);
   }else if(wifihdr->frame_control.type == WIFI_FTYPE_DATA){
     switch (wifihdr->frame_control.subtype)
