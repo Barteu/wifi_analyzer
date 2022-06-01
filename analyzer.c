@@ -36,7 +36,7 @@ void trap(u_char *user, const struct pcap_pkthdr *h, const u_char *bytes) {
     if(wifihdr->frame_control.subtype == WIFI_STYPE_BEACON){
       int i = 0;
       printf("SSID: ");
-      while(isprint(*(frame_body + 12 + i))) {
+      while(isprint(*(frame_body + 12 + i)) && i < 32) {
         printf("%c", *(frame_body + 12 + i));
         i++;
       }
