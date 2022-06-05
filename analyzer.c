@@ -25,6 +25,7 @@ void stop(int signo) {
 void trap(u_char *user, const struct pcap_pkthdr *h, const u_char *bytes) {
   struct radiotap_hdr *rthdr = (struct radiotap_hdr *) bytes;
   struct wifi_hdr *wifihdr = (struct wifi_hdr *) (bytes + rthdr->len);
+  printf("------------------------------------------------\n");
   printf("[%dB of %dB]\n", h->caplen, h->len);
   print_wifi_hdr(*wifihdr);
 
